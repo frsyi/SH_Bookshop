@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sarana_hidayah/controller/auth_controller.dart';
 import 'package:sarana_hidayah/view/register_screen.dart';
+import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,8 +15,30 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final AuthController _authController = AuthController();
-
   bool visibilityPass = true;
+
+  void loginUser() async {
+    if (_formKey.currentState!.validate()) {
+      final message = await _authController.login(
+        _emailController.text,
+        _passwordController.text,
+      );
+      if (message == 'Login successful') {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => const HomeScreen(),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(message),
+          ),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,10 +135,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Password tidak boleh kosong";
-                        } else if (value.length < 6) {
-                          return "Masukkan minimal 6 characters";
+                        if (value == null || value.isEmpty) {
+                          return "Password tidak boleh kosong!!";
                         }
                         return null;
                       },
@@ -127,15 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: MouseRegion(
                         cursor: SystemMouseCursors.click,
                         child: GestureDetector(
-                            onTap: () {
-                              if (_formKey.currentState!.validate()) {
-                                _authController.login(
-                                  context,
-                                  _emailController.text,
-                                  _passwordController.text,
-                                );
-                              }
-                            },
+                            onTap: loginUser,
                             child: Container(
                               alignment: Alignment.center,
                               height: 50,

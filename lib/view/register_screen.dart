@@ -21,7 +21,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool visibilityPass = true;
   bool visibilityConfirmPass = true;
 
-  final AuthController authController = AuthController();
+  // final AuthController authController = AuthController();
 
   @override
   Widget build(BuildContext context) {
@@ -275,11 +275,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         cursor: SystemMouseCursors.click,
                         child: GestureDetector(
                           onTap: () {
-                            if (_formKey.currentState!.validate()) {
-                              _formKey.currentState?.save();
-                              authController.register(context, _name, _email,
-                                  _password, _confirmPassword);
-                            }
+                            // if (_formKey.currentState!.validate()) {
+                            //   _formKey.currentState?.save();
+                            //   authController.register(context, _name, _email,
+                            //       _password, _confirmPassword);
+                            // }
                           },
                           child: Container(
                             alignment: Alignment.center,

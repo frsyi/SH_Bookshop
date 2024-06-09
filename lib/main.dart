@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sarana_hidayah/view/register_screen.dart';
+import 'package:sarana_hidayah/view/login_screen.dart';
 import 'package:sarana_hidayah/view/splash_screen.dart';
 
 void main() {
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
               theme: ThemeData(
                 primarySwatch: Colors.blue,
               ),
-              home: const RegisterScreen(),
+              home: LoginScreen(),
             );
           }
         });
