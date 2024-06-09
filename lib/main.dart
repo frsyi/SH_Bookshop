@@ -16,14 +16,14 @@ class MyApp extends StatelessWidget {
         future: Future.delayed(const Duration(seconds: 3)),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return SplashScreen();
+            return const SplashScreen();
           } else {
             return GetMaterialApp(
               debugShowCheckedModeBanner: false,
               theme: ThemeData(
                 primarySwatch: Colors.blue,
               ),
-              home: LoginScreen(),
+              home: const LoginScreen(),
             );
           }
         });

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sarana_hidayah/controller/auth_controller.dart';
+import 'package:sarana_hidayah/view/login_screen.dart';
 import 'package:sarana_hidayah/view/map_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -21,7 +22,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool visibilityPass = true;
   bool visibilityConfirmPass = true;
 
-  // final AuthController authController = AuthController();
+  final AuthController authController = AuthController();
+
+  void _register() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      String message = await authController.register(
+          _name, _phone, _address, _email, _password, _confirmPassword);
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(message),
+      ));
+
+      if (message == 'Registration successful') {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,54 +134,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       },
                     ),
                     const SizedBox(height: 20),
-                    GestureDetector(
-                      onTap: () async {
-                        final result = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => MapScreen(
-                                onLocationSelected: (selectedAddress) {
-                              setState(() {
-                                _address = selectedAddress;
-                              });
-                            }),
-                          ),
-                        );
-
-                        if (result != null) {
-                          setState(() {
-                            _address = result['address'];
-                          });
-                        }
-                      },
-                      child: AbsorbPointer(
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(28),
-                                borderSide: const BorderSide(
-                                    color: Color(0xff134f5c), width: 2.0)),
-                            labelText: "Alamat",
-                            hintText: "Pilih alamat anda",
-                            labelStyle:
-                                const TextStyle(color: Color(0xff134f5c)),
-                            prefixIcon: const Icon(
-                              Icons.home,
-                              color: Color(0xff134f5c),
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Alamat tidak boleh kosong';
-                            }
-                            return null;
-                          },
-                          onSaved: (newValue) {
-                            _address = newValue!;
-                          },
-                          controller: TextEditingController(text: _address),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(28),
+                            borderSide: const BorderSide(
+                                color: Color(0xff134f5c), width: 2.0)),
+                        labelText: "Alamat",
+                        hintText: "Masukkan alamat anda",
+                        labelStyle: const TextStyle(color: Color(0xff134f5c)),
+                        prefixIcon: const Icon(
+                          Icons.person,
+                          color: Color(0xff134f5c),
                         ),
                       ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Alamat tidak boleh kosong';
+                        }
+                        return null;
+                      },
+                      onSaved: (newValue) {
+                        _address = newValue!;
+                      },
                     ),
                     const SizedBox(height: 20),
                     TextFormField(
@@ -274,13 +268,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: MouseRegion(
                         cursor: SystemMouseCursors.click,
                         child: GestureDetector(
-                          onTap: () {
-                            // if (_formKey.currentState!.validate()) {
-                            //   _formKey.currentState?.save();
-                            //   authController.register(context, _name, _email,
-                            //       _password, _confirmPassword);
-                            // }
-                          },
+                          onTap: _register,
                           child: Container(
                             alignment: Alignment.center,
                             height: 50,
@@ -314,11 +302,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.of(context)
-                                .pushReplacementNamed('/login');
+                            Navigator.pop(context);
                           },
                           child: const Text(
-                            'Masuk Sekarang',
+                            'Sign In',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xff134f5c)),
