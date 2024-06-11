@@ -24,7 +24,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Book Store 😃📚'),
+        title: const Text('Book Store'),
         backgroundColor: Color(0xff134f5c),
       ),
       body: FutureBuilder<List<Book>>(

@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   SizedBox(height: 5),
                   Text(
-                    'Menebar ilmu, menggapai hidayah',
+                    '',
                     style: TextStyle(fontSize: 14, color: Colors.white),
                   ),
                 ],
