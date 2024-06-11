@@ -31,6 +31,7 @@ class AuthService {
     final response = await http.post(
       Uri.parse('$baseUrl/login'),
       body: {'email': email, 'password': password},
+      headers: {"Accept": "application/json"},
     );
     print('Response Status: ${response.statusCode}');
     print('Response Body: ${response.body}');
