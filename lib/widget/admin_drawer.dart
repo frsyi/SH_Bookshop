@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sarana_hidayah/view/catalog_screen.dart';
+import 'package:sarana_hidayah/view/category_screen.dart';
 
 class AdminDrawer extends StatefulWidget {
   const AdminDrawer({super.key});
@@ -43,14 +45,22 @@ class _AdminDrawerState extends State<AdminDrawer> {
               leading: const Icon(Icons.home),
               title: Text('Catalog'),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => CatalogScreen(),
+                  ),
+                );
               },
             ),
             ListTile(
               leading: const Icon(Icons.category),
               title: Text('Category'),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => CategoryScreen(),
+                  ),
+                );
               },
             ),
             ListTile(
