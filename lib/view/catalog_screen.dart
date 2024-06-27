@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:sarana_hidayah/model/book.dart';
 import 'package:sarana_hidayah/controller/book_controller.dart';
+import 'package:sarana_hidayah/widget/admin_drawer.dart';
+import 'package:sarana_hidayah/widget/header_admin.dart';
 
 class CatalogScreen extends StatefulWidget {
   const CatalogScreen({Key? key}) : super(key: key);
@@ -23,10 +25,8 @@ class _CatalogScreenState extends State<CatalogScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Book Store'),
-        backgroundColor: Color(0xff134f5c),
-      ),
+      appBar: HeaderAdmin(),
+      drawer: AdminDrawer(),
       body: FutureBuilder<List<Book>>(
         future: bookController.getBooks(),
         builder: (context, snapshot) {
