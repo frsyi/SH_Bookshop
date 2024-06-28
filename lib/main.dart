@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sarana_hidayah/view/catalog_screen.dart';
 import 'package:sarana_hidayah/view/login_screen.dart';
 import 'package:sarana_hidayah/view/splash_screen.dart';
 
